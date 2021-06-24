@@ -4,7 +4,7 @@ Borderland 3 Mayhem Mode Configurator
 This is a little web app to generate [BL3 Hotfix Mods](http://borderlandsmodding.com/bl3/)
 to alter various characteristics of BL3's [Mayhem Mode](https://borderlands.fandom.com/wiki/Mayhem_Mode).
 This lets you alter which Mayhem Modifier pools are used in which mayhem
-levels, what many of the scaling values are in those levels, and which
+levels, all the various scaling values are in those levels, and which
 mayhem modifiers are active in each of the pools.
 
 The scaling values in particular that it lets you edit are:
@@ -13,13 +13,11 @@ The scaling values in particular that it lets you edit are:
  * XP Scaling
  * Cash/Eridium Scaling
  * Loot Scaling
- * Pet Health
- * Companion Health
-
-At the moment it does *not* let you change the drop weight/quantity
-scaling values, or the damage scaling parameters, mostly because
-there's a hell of a lot of those values, and the codes used to identify
-configurations are already gigantic.
+ * Pet/Companion Health
+ * Drop Weight Scaling
+ * Damage Scaling
+ * Drop Number Scaling *(honestly not sure what exactly this controls)*
+ * Eridium Drop Chance Scaling
 
 Once you've configured how you want Mayhem Mode to operate, click the
 `Generate Modfile` button to download the [B3HM-compatible mod file](http://borderlandsmodding.com/bl3-running-mods/)

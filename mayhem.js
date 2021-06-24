@@ -46,7 +46,12 @@ function updatelink()
 
     // Now scaling info
     var scaling = [];
-    var scale_vars = ['enemy', 'xp', 'cash', 'loot', 'pets', 'companions'];
+    var scale_vars = ['enemy', 'xp', 'cash', 'loot', 'pets', 'companions',
+        'white', 'green', 'blue', 'purple', 'orange',
+        'dam_as', 'dam_melee', 'dam_slide', 'dam_slam', 'dam_pet',
+        'dam_env', 'dam_passive', 'dam_veh_dealt', 'dam_veh_taken', 'dam_gear',
+        'dropnum', 'eridium',
+    ];
     for (var level=0; level<11; level++)
     {
         mayhem_label = 'mayhem_' + (level+1) + '_';

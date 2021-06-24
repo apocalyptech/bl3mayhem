@@ -132,7 +132,13 @@ class ModSet
 class MayhemLevel
 {
 
-    function __construct($level, $enemy_scale, $xp_scale, $cash_scale, $loot_scale, $pet_scale, $companion_scale, $modsets)
+    function __construct($level,
+        $enemy_scale, $xp_scale, $cash_scale, $loot_scale, $pet_scale, $companion_scale,
+        $white_scale, $green_scale, $blue_scale, $purple_scale, $orange_scale,
+        $dam_as, $dam_melee, $dam_slide, $dam_slam, $dam_pet,
+        $dam_env, $dam_passive, $dam_veh_dealt, $dam_veh_taken, $dam_gear,
+        $dropnum, $eridium,
+        $modsets)
     {
         $this->level = $level;
         $this->enemy_scale = $enemy_scale;
@@ -141,6 +147,23 @@ class MayhemLevel
         $this->loot_scale = $loot_scale;
         $this->pet_scale = $pet_scale;
         $this->companion_scale = $companion_scale;
+        $this->white_scale = $white_scale;
+        $this->green_scale = $green_scale;
+        $this->blue_scale = $blue_scale;
+        $this->purple_scale = $purple_scale;
+        $this->orange_scale = $orange_scale;
+        $this->dam_as = $dam_as;
+        $this->dam_melee = $dam_melee;
+        $this->dam_slide = $dam_slide;
+        $this->dam_slam = $dam_slam;
+        $this->dam_pet = $dam_pet;
+        $this->dam_env = $dam_env;
+        $this->dam_passive = $dam_passive;
+        $this->dam_veh_dealt = $dam_veh_dealt;
+        $this->dam_veh_taken = $dam_veh_taken;
+        $this->dam_gear = $dam_gear;
+        $this->dropnum = $dropnum;
+        $this->eridium = $eridium;
         $this->modsets = $modsets;
     }
 }
@@ -203,9 +226,9 @@ function show_mayhem_selector($level, $slot, $cur_idx)
     echo "<br />\n";
 }
 
-function show_textbox_row($label, $level, $data)
+function show_textbox_row($label, $id, $level, $data)
 {
-    $full_id = 'mayhem_' . $level . '_' . strtolower($label);
+    $full_id = 'mayhem_' . $level . '_' . $id;
     echo "<tr>\n";
     echo '<td style="text-align: right;">' . htmlentities($label) . ":</td>\n";
     echo "<td>\n";
@@ -218,7 +241,7 @@ function show_textbox_row($label, $level, $data)
 function show_mayhem_config($level, $cur_modsets)
 {
     echo "<tr class=\"mayhem_header\">\n";
-    echo '<td colspan="3" class="mayhem_header_' . $level->level . '"><h2>Mayhem ' . $level->level . " Configuration</h2></td>\n";
+    echo '<td colspan="6" class="mayhem_header_' . $level->level . '"><h2>Mayhem ' . $level->level . " Configuration</h2></td>\n";
     echo "</tr>\n";
     echo "<tr class=\"mayhem_config\">\n";
 
@@ -231,23 +254,59 @@ function show_mayhem_config($level, $cur_modsets)
     }
     echo "</td>\n";
 
-    // Scaling
+    // Scaling + Buffs
     echo "<td>\n";
-    echo "<b>Scaling</b>\n";
     echo "<table class=\"scaling_table\">\n";
-    show_textbox_row('Enemy', $level->level, $level->enemy_scale);
-    show_textbox_row('XP', $level->level, $level->xp_scale);
-    show_textbox_row('Cash', $level->level, $level->cash_scale);
-    show_textbox_row('Loot', $level->level, $level->loot_scale);
+    echo "<tr><td colspan=\"2\">\n";
+    echo "<b>Scaling</b>\n";
+    echo "</td></tr>\n";
+    show_textbox_row('Enemy', 'enemy', $level->level, $level->enemy_scale);
+    show_textbox_row('XP', 'xp', $level->level, $level->xp_scale);
+    show_textbox_row('Cash', 'cash', $level->level, $level->cash_scale);
+    show_textbox_row('Loot', 'loot', $level->level, $level->loot_scale);
+    echo "<tr><td>&nbsp;</td></tr>\n";
+    echo "<tr><td colspan=\"2\">\n";
+    echo "<b>Buffs</b>\n";
+    echo "</td></tr>\n";
+    show_textbox_row('Pets', 'pets', $level->level, $level->pet_scale);
+    show_textbox_row('Companions', 'companions', $level->level, $level->companion_scale);
     echo "</table>\n";
     echo "</td>\n";
 
-    // Buffs
+    // Drop Weight Modifiers
     echo "<td>\n";
-    echo "<b>Buffs</b>\n";
     echo "<table class=\"scaling_table\">\n";
-    show_textbox_row('Pets', $level->level, $level->pet_scale);
-    show_textbox_row('Companions', $level->level, $level->companion_scale);
+    echo "<tr><td colspan=\"2\">\n";
+    echo "<b>Drop Weight Scaling</b>\n";
+    echo "</td></tr>\n";
+    show_textbox_row('White', 'white', $level->level, $level->white_scale);
+    show_textbox_row('Green', 'green', $level->level, $level->green_scale);
+    show_textbox_row('Blue', 'blue', $level->level, $level->blue_scale);
+    show_textbox_row('Purple', 'purple', $level->level, $level->purple_scale);
+    show_textbox_row('Orange', 'orange', $level->level, $level->orange_scale);
+    echo "<tr><td>&nbsp;</td></tr>\n";
+    echo "<tr><td colspan=\"2\">\n";
+    echo "<b>Drop Changes</b>\n";
+    echo "</td></tr>\n";
+    show_textbox_row('Drop Number', 'dropnum', $level->level, $level->dropnum);
+    show_textbox_row('Eridium Chance', 'eridium', $level->level, $level->eridium);
+    echo "</table>\n";
+    echo "</td>\n";
+
+    // Damage
+    echo "<td>\n";
+    echo "<b>Damage Scaling</b>\n";
+    echo "<table class=\"scaling_table\">\n";
+    show_textbox_row('Action Skill', 'dam_as', $level->level, $level->dam_as);
+    show_textbox_row('Melee', 'dam_melee', $level->level, $level->dam_melee);
+    show_textbox_row('Slide', 'dam_slide', $level->level, $level->dam_slide);
+    show_textbox_row('Slam', 'dam_slam', $level->level, $level->dam_slam);
+    show_textbox_row('Pet', 'dam_pet', $level->level, $level->dam_pet);
+    show_textbox_row('Environment', 'dam_env', $level->level, $level->dam_env);
+    show_textbox_row('Passive', 'dam_passive', $level->level, $level->dam_passive);
+    show_textbox_row('Vehicle (dealt)', 'dam_veh_dealt', $level->level, $level->dam_veh_dealt);
+    show_textbox_row('Vehicle (taken)', 'dam_veh_taken', $level->level, $level->dam_veh_taken);
+    show_textbox_row('Gear', 'dam_gear', $level->level, $level->dam_gear);
     echo "</table>\n";
     echo "</td>\n";
 
@@ -307,17 +366,17 @@ if (array_key_exists('config', $_REQUEST))
                 && is_array($config['s'][8])
                 && is_array($config['s'][9])
                 && is_array($config['s'][10])
-                && count($config['s'][0]) == 6
-                && count($config['s'][1]) == 6
-                && count($config['s'][2]) == 6
-                && count($config['s'][3]) == 6
-                && count($config['s'][4]) == 6
-                && count($config['s'][5]) == 6
-                && count($config['s'][6]) == 6
-                && count($config['s'][7]) == 6
-                && count($config['s'][8]) == 6
-                && count($config['s'][9]) == 6
-                && count($config['s'][10]) == 6
+                && count($config['s'][0]) == 23
+                && count($config['s'][1]) == 23
+                && count($config['s'][2]) == 23
+                && count($config['s'][3]) == 23
+                && count($config['s'][4]) == 23
+                && count($config['s'][5]) == 23
+                && count($config['s'][6]) == 23
+                && count($config['s'][7]) == 23
+                && count($config['s'][8]) == 23
+                && count($config['s'][9]) == 23
+                && count($config['s'][10]) == 23
                 )
             {
                 $got_valid_config = true;
@@ -401,6 +460,23 @@ for ($level=0; $level<11; $level++)
     $mayhem_levels[$level]->loot_scale = floatval($config['s'][$level][3]);
     $mayhem_levels[$level]->pet_scale = floatval($config['s'][$level][4]);
     $mayhem_levels[$level]->companion_scale = floatval($config['s'][$level][5]);
+    $mayhem_levels[$level]->white_scale = floatval($config['s'][$level][6]);
+    $mayhem_levels[$level]->green_scale = floatval($config['s'][$level][7]);
+    $mayhem_levels[$level]->blue_scale = floatval($config['s'][$level][8]);
+    $mayhem_levels[$level]->purple_scale = floatval($config['s'][$level][9]);
+    $mayhem_levels[$level]->orange_scale = floatval($config['s'][$level][10]);
+    $mayhem_levels[$level]->dam_as = floatval($config['s'][$level][11]);
+    $mayhem_levels[$level]->dam_melee = floatval($config['s'][$level][12]);
+    $mayhem_levels[$level]->dam_slide = floatval($config['s'][$level][13]);
+    $mayhem_levels[$level]->dam_slam = floatval($config['s'][$level][14]);
+    $mayhem_levels[$level]->dam_pet = floatval($config['s'][$level][15]);
+    $mayhem_levels[$level]->dam_env = floatval($config['s'][$level][16]);
+    $mayhem_levels[$level]->dam_passive = floatval($config['s'][$level][17]);
+    $mayhem_levels[$level]->dam_veh_dealt = floatval($config['s'][$level][18]);
+    $mayhem_levels[$level]->dam_veh_taken = floatval($config['s'][$level][19]);
+    $mayhem_levels[$level]->dam_gear = floatval($config['s'][$level][20]);
+    $mayhem_levels[$level]->dropnum = floatval($config['s'][$level][21]);
+    $mayhem_levels[$level]->eridium = floatval($config['s'][$level][22]);
 }
 
 /*
@@ -492,6 +568,23 @@ if (array_key_exists('action', $_POST) and $_POST['action'] == 'generate')
         echo $hf_start . 'LootQuality_56_03E220E0495C6B37CD6C7195F5EA289B,0,,' . $mh_level->loot_scale . "\n";
         echo $hf_start . 'PetHealth_84_E5B903B4452F4310CCD13C931474E12B,0,,' . $mh_level->pet_scale . "\n";
         echo $hf_start . 'CompanionHealth_89_294A6BE7439072AE9F934CAA127D8D83,0,,' . $mh_level->companion_scale . "\n";
+        echo $hf_start . 'DropWeightCommonScalar_21_59A2FB124E32B955768A7B9D93C25A99,0,,' . $mh_level->white_scale . "\n";
+        echo $hf_start . 'DropWeightUncommonScalar_25_809615334E7F0DB3B8712DAC221015C3,0,,' . $mh_level->green_scale . "\n";
+        echo $hf_start . 'DropWeightRareScalar_27_A09CF5314C51796896A83EA0806C7520,0,,' . $mh_level->blue_scale . "\n";
+        echo $hf_start . 'DropWeightVeryRareScalar_29_F2CA570046CD50A7C514EDB0AE1BE591,0,,' . $mh_level->purple_scale . "\n";
+        echo $hf_start . 'DropWeightLegendaryScalar_31_D9DA03C54065EA981BE218B11942C24E,0,,' . $mh_level->orange_scale . "\n";
+        echo $hf_start . 'DamageScalarActionSkill_60_39AF483140740A38FC71BA897155CBFF,0,,' . $mh_level->dam_as . "\n";
+        echo $hf_start . 'DamageScalarMelee_67_9948929F4FF34364CED2EAB51A881946,0,,' . $mh_level->dam_melee . "\n";
+        echo $hf_start . 'DamageScalarSlide_68_B48D0E3A4DF57196839BB58D5AE3E638,0,,' . $mh_level->dam_slide . "\n";
+        echo $hf_start . 'DamageScalarSlam_69_15DB6EDC4CCA52620BF25398CFFD9B26,0,,' . $mh_level->dam_slam . "\n";
+        echo $hf_start . 'DamageScalarPet_72_0DD7977D44C4A71D0A6B56B7884E023C,0,,' . $mh_level->dam_pet . "\n";
+        echo $hf_start . 'DamageScalarEnviornmental_111_E2A582AA47FC000789FC68BBD31D2CFC,0,,' . $mh_level->dam_env . "\n";
+        echo $hf_start . 'DamageScalarPassive_115_6A30229E4CC04F751ED01CB64A71880F,0,,' . $mh_level->dam_passive . "\n";
+        echo $hf_start . 'DamageDealtScalarVehicles_103_5739171948322B35CDA36487F78AF0CE,0,,' . $mh_level->dam_veh_dealt . "\n";
+        echo $hf_start . 'DamageTakenScalarVehicles_104_B75AB4EC482624FDEAAF31B0FA369A77,0,,' . $mh_level->dam_veh_taken . "\n";
+        echo $hf_start . 'DamageScalarGear_119_9FC89117424C6619F2CA958FA2842FC2,0,,' . $mh_level->dam_gear . "\n";
+        echo $hf_start . 'DropNumberChanceSimpleScalar_40_115637764B3918F01E6FAFADDC005388,0,,' . $mh_level->dropnum . "\n";
+        echo $hf_start . 'DropEridiumChanceSimpleScalar_41_E89AD7E9473FDF3CBED395BA6641FA68,0,,' . $mh_level->eridium . "\n";
         echo "\n";
     }
 
