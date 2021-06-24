@@ -55,6 +55,8 @@ current `Site header` section) and footer, in `index.php`.
 The app uses some data provided by my [`gen_mayhem_php.py`](https://github.com/BLCM/bl3mods/blob/master/Apocalyptech/dataprocessing/gen_mayhem_php.py)
 script, though you wouldn't have to worry about regenerating that.
 
+Oh, and also: the code's pretty awful all around.  Sorry about that!
+
 Licenses
 --------
 
