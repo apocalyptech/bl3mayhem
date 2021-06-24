@@ -66,9 +66,10 @@ The main code for the Configurator is licensed under the
 [New/Modified (3-Clause) BSD License](https://opensource.org/licenses/BSD-3-Clause).
 A copy can be found in [COPYING.txt](COPYING.txt).
 
-This project also includes a partial PHP port of
-[pieroxy's lz-string project](https://pieroxy.net/blog/pages/lz-string/index.html),
+This project also makes use of (in `lz-string.min.js`), and includes a
+partial PHP port of (in `lz-string.php`) [pieroxy's lz-string project](https://pieroxy.net/blog/pages/lz-string/index.html),
 which is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+A copy can be found in [COPYING-lz-string.txt](COPYING-lz-string.txt).
 
 The mods which this app generates are licensed under
 [CC0 1.0 (Public Domain)](https://creativecommons.org/publicdomain/zero/1.0/),
