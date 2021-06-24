@@ -27,6 +27,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+// NOTE: This URL is also hardcoded in mayhem.js, so be sure to change it there, too.
+// Should include the trailing slash, though that only matters for the in-mod link.
+$BASE_URL='https://apocalyptech.com/games/bl3-mayhem/';
 $MAX_VERSION=1;
 require_once('lz-string.php');
 
@@ -448,10 +451,10 @@ if (array_key_exists('action', $_POST) and $_POST['action'] == 'generate')
 ###
 
 ###
-### Contains customizations chosen at https://apocalyptech.com/games/bl3-mayhem/
+### Contains customizations chosen at <?php echo $BASE_URL . "\n"; ?>
 ### Link to this specific customization set, in case you'd like to tweak it:
 ###
-###   https://apocalyptech.com/games/bl3-mayhem/index.php?config=<?php echo $_POST['config'] . "\n" ?>
+###   <?php echo $BASE_URL; ?>index.php?config=<?php echo $_POST['config'] . "\n" ?>
 ###
 
 <?
@@ -568,7 +571,7 @@ file; I'm unsure whether or not I'll have "live" web-based hotfix delivery here.
 <tr>
 <td colspan="3">
 <div class="modlink">
-<b>URL to this configuration:</b> <a href="https://apocalyptech.com/games/bl3-mayhem/" id="modlink_a">https://apocalyptech.com/games/bl3-mayhem/</a>
+<b>URL to this configuration:</b> <a href="<?php echo $BASE_URL; ?>" id="modlink_a"><?php echo $BASE_URL; ?></a>
 </div>
 </td>
 </tr>

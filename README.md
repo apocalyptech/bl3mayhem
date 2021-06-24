@@ -53,9 +53,8 @@ There's a couple of tweaks that you'll have to make, though:
    repo (and isn't generally available online).  To host it yourself
    you'll have to write in your own HTML header (in place of the
    current `Site header` section) and footer, in `index.php`.
-2. There's a few hardcoded references to the apocalyptech.com-hosted
-   URL, both in the PHP code and the Javascript.  So you'll have to
-   alter those to suit.
+2. The apocalyptech.com-hosted URL is hardcoded in both `index.php`
+   and `mayhem.js`, so you'll have to alter those to suit.
 
 The app uses some data provided by my [`gen_mayhem_php.py`](https://github.com/BLCM/bl3mods/blob/master/Apocalyptech/dataprocessing/gen_mayhem_php.py)
 script, though you wouldn't have to worry about regenerating that.
