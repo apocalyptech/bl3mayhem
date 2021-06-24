@@ -67,6 +67,6 @@ This project also includes a partial PHP port of
 which is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 The mods which this app generates are licensed under
-[CC0 1.0 (Public Domain](https://creativecommons.org/publicdomain/zero/1.0/),
+[CC0 1.0 (Public Domain)](https://creativecommons.org/publicdomain/zero/1.0/),
 so feel free to do whatever you like with those.
 
