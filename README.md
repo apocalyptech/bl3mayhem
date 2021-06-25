@@ -1,5 +1,5 @@
-Borderland 3 Mayhem Mode Configurator
-=====================================
+Borderlands 3 Mayhem Mode Configurator
+======================================
 
 This is a little web app to generate [BL3 Hotfix Mods](http://borderlandsmodding.com/bl3/)
 to alter various characteristics of BL3's [Mayhem Mode](https://borderlands.fandom.com/wiki/Mayhem_Mode).
