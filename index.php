@@ -637,7 +637,7 @@ $page->add_css('mayhem.css', 1);
 $page->add_js('lz-string.min.js', 1);
 $page->add_js('mayhem.js', 1);
 $page->add_onload('updatelink();');
-$page->add_changelog('foo', 'Initial release');
+$page->add_changelog('Jun 24, 2021', 'Initial release');
 $page->apoc_header();
 
 ?>
@@ -645,18 +645,20 @@ $page->apoc_header();
 <noscript><h1>Note: Alas, this page does require Javascript.  Sorry!</h1></noscript>
 
 <p>
-<span style="font-size: bigger; font-weight: bold; color: red;">Warning!</span> - this is
-still a work in progress.  It may break at any point, start looking different (or have
-bits rearranged, etc), old codes may stop working, and the mods it generates could have
-unintended side effects or just not work at all.  So, y'know, there's that.
+This is a web app to generate <a href="http://borderlandsmodding.com/bl3/">BL3 Hotfix Mods</a>
+to alter characteristics of BL3's <a href="https://borderlands.fandom.com/wiki/Mayhem_Mode">Mayhem Mode</a>.
+Click around to change whatever you like, and when you're ready, hit the
+<tt>Generate Modfile</tt> button to download the
+<a href="http://borderlandsmodding.com/bl3-running-mods/">B3HM-compatible mod file</a>
+containing your config.  Choose <tt>Add Local Path</tt> from B3HM's web UI to
+add the downloaded file to your mod list.  (This page does <i>not</i> support
+adding to B3HM via <tt>Add URL</tt>.)  As you change options, the app will generate
+a unique URL to store your config.  Bookmark the URL (or look inside the downloaded
+mod file) to return to the config to make changes in the future.
 </p>
 
 <p>
-Regardless, click around all you want, and hit the "Generate Mod" button when you want
-to download the mod.  Bookmark the URL if you want to come back to the configuration
-later (though see the above warning about those codes possibly breaking at any point
-while this is in development).  At the moment you must add the file to B3HM as a local
-file; I'm unsure whether or not I'll have "live" web-based hotfix delivery here.
+Sourcecode for this page can be found at <a href="https://github.com/apocalyptech/bl3mayhem/">github.com/apocalyptech/bl3mayhem</a>.
 </p>
 
 <table class="control_area">

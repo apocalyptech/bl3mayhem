@@ -75,3 +75,9 @@ The mods which this app generates are licensed under
 [CC0 1.0 (Public Domain)](https://creativecommons.org/publicdomain/zero/1.0/),
 so feel free to do whatever you like with those.
 
+Changelog
+---------
+
+2021-06-24
+- Initial Release
+
