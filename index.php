@@ -638,6 +638,7 @@ $page->add_js('lz-string.min.js', 1);
 $page->add_js('mayhem.js', 1);
 $page->add_onload('updatelink();');
 $page->add_changelog('Jun 24, 2021', 'Initial release');
+$page->add_changelog('Jun 25, 2021', 'Added note about M11 probably using M10 stats');
 $page->apoc_header();
 
 ?>
@@ -659,6 +660,13 @@ mod file) to return to the config to make changes in the future.
 
 <p>
 Sourcecode for this page can be found at <a href="https://github.com/apocalyptech/bl3mayhem/">github.com/apocalyptech/bl3mayhem</a>.
+</p>
+
+<p>
+<b>Note:</b> Mayhem 11 apparently uses many of the Mayhem 10 stats, rather
+than the M11 versions, so it's possible that at least some of your changes
+to M11 might just duplicate M10.  I'll be able to look into that in a
+few days, but for now, just be aware of it!
 </p>
 
 <table class="control_area">
