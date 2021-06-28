@@ -2,7 +2,7 @@
 function updatelink()
 {
     // Dict that we'll JSONify+compress+base64 for the link
-    var linkdata = {'v': 1};
+    var linkdata = {'v': 2};
 
     // Get our active mods, per level
     var active_mods = [[],[],[],[],[]]
@@ -52,7 +52,7 @@ function updatelink()
         'dam_env', 'dam_passive', 'dam_veh_dealt', 'dam_veh_taken', 'dam_gear',
         'dropnum', 'eridium',
     ];
-    for (var level=0; level<11; level++)
+    for (var level=0; level<10; level++)
     {
         mayhem_label = 'mayhem_' + (level+1) + '_';
         scales = [];

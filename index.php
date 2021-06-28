@@ -30,8 +30,18 @@
 // NOTE: This URL is also hardcoded in mayhem.js, so be sure to change it there, too.
 // Should include the trailing slash, though that only matters for the in-mod link.
 $BASE_URL='https://apocalyptech.com/games/bl3-mayhem/';
-$MAX_VERSION=1;
+$MAX_VERSION=2;
 require_once('lz-string.php');
+
+/**
+ * Config string version history:
+ *
+ * v1 - Initial release
+ * v2 - Despite *visually* taking its numbers from the Mayhem 11 table values,
+ *      M11 *actually* just uses the M10 values behind the scenes, so v2 removes
+ *      the M11 stats string entirely, and the mod-generation section will
+ *      explicitly re-use the M10 stats, to ensure that it visually looks right.
+ */
 
 class Ability
 {
@@ -254,61 +264,76 @@ function show_mayhem_config($level, $cur_modsets)
     }
     echo "</td>\n";
 
-    // Scaling + Buffs
-    echo "<td>\n";
-    echo "<table class=\"scaling_table\">\n";
-    echo "<tr><td colspan=\"2\">\n";
-    echo "<b>Scaling</b>\n";
-    echo "</td></tr>\n";
-    show_textbox_row('Enemy', 'enemy', $level->level, $level->enemy_scale);
-    show_textbox_row('XP', 'xp', $level->level, $level->xp_scale);
-    show_textbox_row('Cash', 'cash', $level->level, $level->cash_scale);
-    show_textbox_row('Loot', 'loot', $level->level, $level->loot_scale);
-    echo "<tr><td>&nbsp;</td></tr>\n";
-    echo "<tr><td colspan=\"2\">\n";
-    echo "<b>Buffs</b>\n";
-    echo "</td></tr>\n";
-    show_textbox_row('Pets', 'pets', $level->level, $level->pet_scale);
-    show_textbox_row('Companions', 'companions', $level->level, $level->companion_scale);
-    echo "</table>\n";
-    echo "</td>\n";
+    // Scaling, assuming we're M1-M10
+    if ($level->level < 11)
+    {
 
-    // Drop Weight Modifiers
-    echo "<td>\n";
-    echo "<table class=\"scaling_table\">\n";
-    echo "<tr><td colspan=\"2\">\n";
-    echo "<b>Drop Weight Scaling</b>\n";
-    echo "</td></tr>\n";
-    show_textbox_row('White', 'white', $level->level, $level->white_scale);
-    show_textbox_row('Green', 'green', $level->level, $level->green_scale);
-    show_textbox_row('Blue', 'blue', $level->level, $level->blue_scale);
-    show_textbox_row('Purple', 'purple', $level->level, $level->purple_scale);
-    show_textbox_row('Orange', 'orange', $level->level, $level->orange_scale);
-    echo "<tr><td>&nbsp;</td></tr>\n";
-    echo "<tr><td colspan=\"2\">\n";
-    echo "<b>Drop Changes</b>\n";
-    echo "</td></tr>\n";
-    show_textbox_row('Drop Number', 'dropnum', $level->level, $level->dropnum);
-    show_textbox_row('Eridium Chance', 'eridium', $level->level, $level->eridium);
-    echo "</table>\n";
-    echo "</td>\n";
+        // Scaling + Buffs
+        echo "<td>\n";
+        echo "<table class=\"scaling_table\">\n";
+        echo "<tr><td colspan=\"2\">\n";
+        echo "<b>Scaling</b>\n";
+        echo "</td></tr>\n";
+        show_textbox_row('Enemy', 'enemy', $level->level, $level->enemy_scale);
+        show_textbox_row('XP', 'xp', $level->level, $level->xp_scale);
+        show_textbox_row('Cash', 'cash', $level->level, $level->cash_scale);
+        show_textbox_row('Loot', 'loot', $level->level, $level->loot_scale);
+        echo "<tr><td>&nbsp;</td></tr>\n";
+        echo "<tr><td colspan=\"2\">\n";
+        echo "<b>Buffs</b>\n";
+        echo "</td></tr>\n";
+        show_textbox_row('Pets', 'pets', $level->level, $level->pet_scale);
+        show_textbox_row('Companions', 'companions', $level->level, $level->companion_scale);
+        echo "</table>\n";
+        echo "</td>\n";
 
-    // Damage
-    echo "<td>\n";
-    echo "<b>Damage Scaling</b>\n";
-    echo "<table class=\"scaling_table\">\n";
-    show_textbox_row('Action Skill', 'dam_as', $level->level, $level->dam_as);
-    show_textbox_row('Melee', 'dam_melee', $level->level, $level->dam_melee);
-    show_textbox_row('Slide', 'dam_slide', $level->level, $level->dam_slide);
-    show_textbox_row('Slam', 'dam_slam', $level->level, $level->dam_slam);
-    show_textbox_row('Pet', 'dam_pet', $level->level, $level->dam_pet);
-    show_textbox_row('Environment', 'dam_env', $level->level, $level->dam_env);
-    show_textbox_row('Passive', 'dam_passive', $level->level, $level->dam_passive);
-    show_textbox_row('Vehicle (dealt)', 'dam_veh_dealt', $level->level, $level->dam_veh_dealt);
-    show_textbox_row('Vehicle (taken)', 'dam_veh_taken', $level->level, $level->dam_veh_taken);
-    show_textbox_row('Gear', 'dam_gear', $level->level, $level->dam_gear);
-    echo "</table>\n";
-    echo "</td>\n";
+        // Drop Weight Modifiers
+        echo "<td>\n";
+        echo "<table class=\"scaling_table\">\n";
+        echo "<tr><td colspan=\"2\">\n";
+        echo "<b>Drop Weight Scaling</b>\n";
+        echo "</td></tr>\n";
+        show_textbox_row('White', 'white', $level->level, $level->white_scale);
+        show_textbox_row('Green', 'green', $level->level, $level->green_scale);
+        show_textbox_row('Blue', 'blue', $level->level, $level->blue_scale);
+        show_textbox_row('Purple', 'purple', $level->level, $level->purple_scale);
+        show_textbox_row('Orange', 'orange', $level->level, $level->orange_scale);
+        echo "<tr><td>&nbsp;</td></tr>\n";
+        echo "<tr><td colspan=\"2\">\n";
+        echo "<b>Drop Changes</b>\n";
+        echo "</td></tr>\n";
+        show_textbox_row('Drop Number', 'dropnum', $level->level, $level->dropnum);
+        show_textbox_row('Eridium Chance', 'eridium', $level->level, $level->eridium);
+        echo "</table>\n";
+        echo "</td>\n";
+
+        // Damage
+        echo "<td>\n";
+        echo "<b>Damage Scaling</b>\n";
+        echo "<table class=\"scaling_table\">\n";
+        show_textbox_row('Action Skill', 'dam_as', $level->level, $level->dam_as);
+        show_textbox_row('Melee', 'dam_melee', $level->level, $level->dam_melee);
+        show_textbox_row('Slide', 'dam_slide', $level->level, $level->dam_slide);
+        show_textbox_row('Slam', 'dam_slam', $level->level, $level->dam_slam);
+        show_textbox_row('Pet', 'dam_pet', $level->level, $level->dam_pet);
+        show_textbox_row('Environment', 'dam_env', $level->level, $level->dam_env);
+        show_textbox_row('Passive', 'dam_passive', $level->level, $level->dam_passive);
+        show_textbox_row('Vehicle (dealt)', 'dam_veh_dealt', $level->level, $level->dam_veh_dealt);
+        show_textbox_row('Vehicle (taken)', 'dam_veh_taken', $level->level, $level->dam_veh_taken);
+        show_textbox_row('Gear', 'dam_gear', $level->level, $level->dam_gear);
+        echo "</table>\n";
+        echo "</td>\n";
+
+    } else {
+
+        // Just a note about M11 scaling
+        echo "<td colspan=\"3\">\n";
+        echo "<b>Note:</b><br />\n";
+        echo "Mayhem 11 always inherits from Mayhem 10 stats, so the various scaling<br />\n";
+        echo "parameters are not available here.\n";
+        echo "</td>\n";
+
+    }
 
     echo "</tr>\n";
 }
@@ -327,8 +352,17 @@ if (array_key_exists('config', $_REQUEST))
 
     if (is_array($config) and array_key_exists('v', $config))
     {
-        if ($config['v'] <= $MAX_VERSION)
+        $version = $config['v'];
+        if ($version <= $MAX_VERSION)
         {
+            if ($version == 1)
+            {
+                $expected_mayhem_stats = 11;
+            }
+            else
+            {
+                $expected_mayhem_stats = 10;
+            }
             // Make sure to include all datatype checks as we can, in here.
             if (array_key_exists('p', $config)
                 && is_array($config['p'])
@@ -354,7 +388,7 @@ if (array_key_exists('config', $_REQUEST))
                 && is_array($config['l'][10])
                 && array_key_exists('s', $config)
                 && is_array($config['s'])
-                && count($config['s']) == 11
+                && count($config['s']) == $expected_mayhem_stats
                 && is_array($config['s'][0])
                 && is_array($config['s'][1])
                 && is_array($config['s'][2])
@@ -365,7 +399,7 @@ if (array_key_exists('config', $_REQUEST))
                 && is_array($config['s'][7])
                 && is_array($config['s'][8])
                 && is_array($config['s'][9])
-                && is_array($config['s'][10])
+                && ($version > 1 || is_array($config['s'][10]))
                 && count($config['s'][0]) == 23
                 && count($config['s'][1]) == 23
                 && count($config['s'][2]) == 23
@@ -376,7 +410,7 @@ if (array_key_exists('config', $_REQUEST))
                 && count($config['s'][7]) == 23
                 && count($config['s'][8]) == 23
                 && count($config['s'][9]) == 23
-                && count($config['s'][10]) == 23
+                && ($version > 1 || count($config['s'][10]) == 23)
                 )
             {
                 $got_valid_config = true;
@@ -454,59 +488,33 @@ for ($level=0; $level<11; $level++)
 
     // Scaling stuff; just set it right on the object.
     // ...  why exactly aren't I doing that for everything else?
-    $mayhem_levels[$level]->enemy_scale = floatval($config['s'][$level][0]);
-    $mayhem_levels[$level]->xp_scale = floatval($config['s'][$level][1]);
-    $mayhem_levels[$level]->cash_scale = floatval($config['s'][$level][2]);
-    $mayhem_levels[$level]->loot_scale = floatval($config['s'][$level][3]);
-    $mayhem_levels[$level]->pet_scale = floatval($config['s'][$level][4]);
-    $mayhem_levels[$level]->companion_scale = floatval($config['s'][$level][5]);
-    $mayhem_levels[$level]->white_scale = floatval($config['s'][$level][6]);
-    $mayhem_levels[$level]->green_scale = floatval($config['s'][$level][7]);
-    $mayhem_levels[$level]->blue_scale = floatval($config['s'][$level][8]);
-    $mayhem_levels[$level]->purple_scale = floatval($config['s'][$level][9]);
-    $mayhem_levels[$level]->orange_scale = floatval($config['s'][$level][10]);
-    $mayhem_levels[$level]->dam_as = floatval($config['s'][$level][11]);
-    $mayhem_levels[$level]->dam_melee = floatval($config['s'][$level][12]);
-    $mayhem_levels[$level]->dam_slide = floatval($config['s'][$level][13]);
-    $mayhem_levels[$level]->dam_slam = floatval($config['s'][$level][14]);
-    $mayhem_levels[$level]->dam_pet = floatval($config['s'][$level][15]);
-    $mayhem_levels[$level]->dam_env = floatval($config['s'][$level][16]);
-    $mayhem_levels[$level]->dam_passive = floatval($config['s'][$level][17]);
-    $mayhem_levels[$level]->dam_veh_dealt = floatval($config['s'][$level][18]);
-    $mayhem_levels[$level]->dam_veh_taken = floatval($config['s'][$level][19]);
-    $mayhem_levels[$level]->dam_gear = floatval($config['s'][$level][20]);
-    $mayhem_levels[$level]->dropnum = floatval($config['s'][$level][21]);
-    $mayhem_levels[$level]->eridium = floatval($config['s'][$level][22]);
-}
-
-/*
- * Old "default" config; should probably refactor various processing
- * bits all over here, honestly.
- *
-    $cur_easy = $default_easy;
-    $cur_medium = $default_medium;
-    $cur_hard = $default_hard;
-    $cur_veryhard = $default_veryhard;
-    $cur_m11 = $default_mayhem11;
-    $cur_modsets = array();
-    foreach ($mayhem_levels as $level)
+    if ($level < 10)
     {
-        $new_modsets = array();
-        for ($i=0; $i<4; $i++)
-        {
-            if (array_key_exists($i, $level->modsets))
-            {
-                $new_modsets[] = $level->modsets[$i]->index;
-            }
-            else
-            {
-                $new_modsets[] = -1;
-            }
-        }
-        $cur_modsets[] = $new_modsets;
+        $mayhem_levels[$level]->enemy_scale = floatval($config['s'][$level][0]);
+        $mayhem_levels[$level]->xp_scale = floatval($config['s'][$level][1]);
+        $mayhem_levels[$level]->cash_scale = floatval($config['s'][$level][2]);
+        $mayhem_levels[$level]->loot_scale = floatval($config['s'][$level][3]);
+        $mayhem_levels[$level]->pet_scale = floatval($config['s'][$level][4]);
+        $mayhem_levels[$level]->companion_scale = floatval($config['s'][$level][5]);
+        $mayhem_levels[$level]->white_scale = floatval($config['s'][$level][6]);
+        $mayhem_levels[$level]->green_scale = floatval($config['s'][$level][7]);
+        $mayhem_levels[$level]->blue_scale = floatval($config['s'][$level][8]);
+        $mayhem_levels[$level]->purple_scale = floatval($config['s'][$level][9]);
+        $mayhem_levels[$level]->orange_scale = floatval($config['s'][$level][10]);
+        $mayhem_levels[$level]->dam_as = floatval($config['s'][$level][11]);
+        $mayhem_levels[$level]->dam_melee = floatval($config['s'][$level][12]);
+        $mayhem_levels[$level]->dam_slide = floatval($config['s'][$level][13]);
+        $mayhem_levels[$level]->dam_slam = floatval($config['s'][$level][14]);
+        $mayhem_levels[$level]->dam_pet = floatval($config['s'][$level][15]);
+        $mayhem_levels[$level]->dam_env = floatval($config['s'][$level][16]);
+        $mayhem_levels[$level]->dam_passive = floatval($config['s'][$level][17]);
+        $mayhem_levels[$level]->dam_veh_dealt = floatval($config['s'][$level][18]);
+        $mayhem_levels[$level]->dam_veh_taken = floatval($config['s'][$level][19]);
+        $mayhem_levels[$level]->dam_gear = floatval($config['s'][$level][20]);
+        $mayhem_levels[$level]->dropnum = floatval($config['s'][$level][21]);
+        $mayhem_levels[$level]->eridium = floatval($config['s'][$level][22]);
     }
 }
- */
 
 // Generate the modfile if we've been told to do so
 if (array_key_exists('action', $_POST) and $_POST['action'] == 'generate')
@@ -553,12 +561,27 @@ if (array_key_exists('action', $_POST) and $_POST['action'] == 'generate')
                 $modsets[] = $all_modsets[$modset_idx]->to_hotfix();
             }
         }
-        echo '# Mayhem ' . ($level+1) . "\n";
+        if ($level == 10)
+        {
+            $extra_header = ' (stats duplicated from M10)';
+        }
+        else
+        {
+            $extra_header = '';
+        }
+        echo '# Mayhem ' . ($level+1) . $extra_header . "\n";
         echo 'SparkPatchEntry,(1,1,0,),/Game/PatchDLC/Mayhem2/OverrideModSet_Mayhem2.OverrideModSet_Mayhem2,' .
             'PerLevelOverrides.PerLevelOverrides[' . $level . '].RandomModifierSlotsOverride,0,,' .
             '(' . implode(',', $modsets) . ")\n";
 
-        $mh_level = $mayhem_levels[$level];
+        if ($level < 10)
+        {
+            $mh_level = $mayhem_levels[$level];
+        }
+        else
+        {
+            $mh_level = $mayhem_levels[9];
+        }
         $hf_start = 'SparkPatchEntry,(1,2,0,),' . $table . ',' . ($level+1) . ',';
         echo $hf_start . 'HealthSimpleScalar_42_0499AACF43FDF39B7084E2BB63E4BF68,0,,' . $mh_level->enemy_scale . "\n";
         echo $hf_start . 'ShieldSimpleScalar_43_417C36C54DA2550A4CABC7B26A5E24A8,0,,' . $mh_level->enemy_scale . "\n";
@@ -635,10 +658,11 @@ include('../../inc/apoc.php');
 $page->set_title('Borderlands 3 Mayhem Mode Configurator');
 $page->add_css('mayhem.css', 1);
 $page->add_js('lz-string.min.js', 1);
-$page->add_js('mayhem.js', 1);
+$page->add_js('mayhem.js', 2);
 $page->add_onload('updatelink();');
 $page->add_changelog('Jun 24, 2021', 'Initial release');
 $page->add_changelog('Jun 25, 2021', 'Added note about M11 probably using M10 stats');
+$page->add_changelog('Jun 28, 2021', 'Removed M11 scaling parameters, since it just uses M10');
 $page->apoc_header();
 
 ?>
@@ -660,13 +684,6 @@ mod file) to return to the config to make changes in the future.
 
 <p>
 Sourcecode for this page can be found at <a href="https://github.com/apocalyptech/bl3mayhem/">github.com/apocalyptech/bl3mayhem</a>.
-</p>
-
-<p>
-<b>Note:</b> Mayhem 11 apparently uses many of the Mayhem 10 stats, rather
-than the M11 versions, so it's possible that at least some of your changes
-to M11 might just duplicate M10.  I'll be able to look into that in a
-few days, but for now, just be aware of it!
 </p>
 
 <table class="control_area">

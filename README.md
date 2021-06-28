@@ -78,6 +78,12 @@ so feel free to do whatever you like with those.
 Changelog
 ---------
 
+2021-06-28
+ - Mayhem 11 *actually* takes stats from the M10 values, even though the
+   *visual* reporting in the Mayhem Mode selection screen takes them from
+   M11.  The app now doesn't offer M11 scaling values, and will explicitly
+   re-use the M10 ones for visual purposes.
+
 2021-06-24
 - Initial Release
 
