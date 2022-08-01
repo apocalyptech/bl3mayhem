@@ -78,6 +78,10 @@ so feel free to do whatever you like with those.
 Changelog
 ---------
 
+2022-08-01
+ - Updated to use the new-style [BLIMP Tags](https://github.com/apple1417/blcmm-parsing/tree/master/blimp)
+   for metadata, when generating modfiles.
+
 2021-06-28
  - Mayhem 11 *actually* takes stats from the M10 values, even though the
    *visual* reporting in the Mayhem Mode selection screen takes them from

@@ -2,7 +2,7 @@
 
 /**
  * Borderlands 3 Mayhem Mode Configurator
- * Copyright (C) 2021 CJ Kucera
+ * Copyright (C) 2021-2022 CJ Kucera
  * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -524,15 +524,14 @@ if (array_key_exists('action', $_POST) and $_POST['action'] == 'generate')
     header('Content-Type: text/plain');
     header('Content-Description: Mayhem Mode Customization BL3 Hotfix Mod');
 ?>
-###
-### Name: Mayhem Mode Customization
-### Version: 1.0.0
-### Author: Apocalyptech
-### Contact: https://apocalyptech.com/contact.php
-###
-### License: Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-### License URL: https://creativecommons.org/publicdomain/zero/1.0/
-###
+
+@title Mayhem Mode Customization
+@version 1.0.0
+@author Apocalyptech
+@contact https://apocalyptech.com/contact.php
+
+@license Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+@license-url https://creativecommons.org/publicdomain/zero/1.0/
 
 ###
 ### Contains customizations chosen at <?php echo $BASE_URL . "\n"; ?>
@@ -663,6 +662,7 @@ $page->add_onload('updatelink();');
 $page->add_changelog('Jun 24, 2021', 'Initial release');
 $page->add_changelog('Jun 25, 2021', 'Added note about M11 probably using M10 stats');
 $page->add_changelog('Jun 28, 2021', 'Removed M11 scaling parameters, since it just uses M10');
+$page->add_changelog('Aug 1, 2022', 'Updated to use <a href="https://github.com/apple1417/blcmm-parsing/tree/master/blimp">new metadata tags</a> in mod header');
 $page->apoc_header();
 
 ?>

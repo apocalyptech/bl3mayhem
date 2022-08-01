@@ -1,5 +1,5 @@
 Borderlands 3 Mayhem Mode Configurator
-Copyright (C) 2021 CJ Kucera
+Copyright (C) 2021-2022 CJ Kucera
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
