@@ -207,6 +207,14 @@ function show_mayhem_selector($level, $slot, $cur_idx)
 {
     global $all_modsets;
     $full_id = 'mayhem_' . $level->level . '_' . $slot;
+    if ($cur_idx == -1 and $slot == 0)
+    {
+        # The game will crash if we have a level with NO modifiers, so we're
+        # saying that the first slot must have *something*.  Defaulting to
+        # the Mayhem 11 pool since that's most likely to be the "nothing"
+        # modifier.
+        $cur_idx = 4;
+    }
     if ($cur_idx == -1)
     {
         $cur_class = 'mod_none';
@@ -217,12 +225,16 @@ function show_mayhem_selector($level, $slot, $cur_idx)
     }
     echo 'Mod Pool ' . ($slot+1) . ":\n";
     echo '<select name="' . $full_id . '" id="' . $full_id . '" class="mayhem_pool_select mayhem_' . $level->level . '_pool ' . $cur_class . '" onchange="restyleselect(this); updatelink();">' . "\n";
-    echo '<option class="mod_none" value="-1"';
-    if ($cur_idx == -1)
+    # Only show a "None" option for mod slots 2-4.
+    if ($slot > 0)
     {
-        echo ' selected';
+        echo '<option class="mod_none" value="-1"';
+        if ($cur_idx == -1)
+        {
+            echo ' selected';
+        }
+        echo ">None</option>\n";
     }
-    echo ">None</option>\n";
     for ($i=0; $i<count($all_modsets); $i++)
     {
         echo '<option class="mod_' . $all_modsets[$i]->css_id . '" value="' . $i . '"';
@@ -560,6 +572,14 @@ if (array_key_exists('action', $_POST) and $_POST['action'] == 'generate')
                 $modsets[] = $all_modsets[$modset_idx]->to_hotfix();
             }
         }
+        # The game will crash if we have a level with NO modifiers, so we're
+        # saying that the first slot must have *something*.  Defaulting to
+        # the Mayhem 11 pool since that's most likely to be the "nothing"
+        # modifier.
+        if (count($modsets) == 0)
+        {
+            $modsets[] = $all_modsets[4]->to_hotfix();
+        }
         if ($level == 10)
         {
             $extra_header = ' (stats duplicated from M10)';
@@ -663,6 +683,7 @@ $page->add_changelog('Jun 24, 2021', 'Initial release');
 $page->add_changelog('Jun 25, 2021', 'Added note about M11 probably using M10 stats');
 $page->add_changelog('Jun 28, 2021', 'Removed M11 scaling parameters, since it just uses M10');
 $page->add_changelog('Aug 1, 2022', 'Updated to use <a href="https://github.com/apple1417/blcmm-parsing/tree/master/blimp">new metadata tags</a> in mod header');
+$page->add_changelog('Aug 29, 2022', 'Prevent Mayhem Levels from having <b>no</b> mod pools, since that will crash the game');
 $page->apoc_header();
 
 ?>
